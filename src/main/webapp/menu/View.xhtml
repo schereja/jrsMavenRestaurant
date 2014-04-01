@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -14,26 +15,30 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewMenuLabel_itemId}"/>
-                    <h:outputText value="#{menuController.selected.itemId}" title="#{bundle.ViewMenuTitle_itemId}"/>
-                    <h:outputText value="#{bundle.ViewMenuLabel_itemName}"/>
-                    <h:outputText value="#{menuController.selected.itemName}" title="#{bundle.ViewMenuTitle_itemName}"/>
-                    <h:outputText value="#{bundle.ViewMenuLabel_itemPrice}"/>
-                    <h:outputText value="#{menuController.selected.itemPrice}" title="#{bundle.ViewMenuTitle_itemPrice}"/>
-                </h:panelGrid>
-                <br />
-                <h:commandLink action="#{menuController.destroyAndView}" value="#{bundle.ViewMenuDestroyLink}"/>
-                <br />
-                <br />
-                <h:link outcome="Edit" value="#{bundle.ViewMenuEditLink}"/>
-                <br />
-                <h:commandLink action="#{menuController.prepareCreate}" value="#{bundle.ViewMenuCreateLink}" />
-                <br />
-                <h:commandLink action="#{menuController.prepareList}" value="#{bundle.ViewMenuShowAllLink}"/>
-                <br />
-                <br />
-                <h:link outcome="/index" value="#{bundle.ViewMenuIndexLink}"/>
+                <p:dataTable var="menu" value="#{menuController.items}" editable="true">
+                    <p:column sortBy="itemId" headerText="Item Id">
+
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{menu.itemId}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="menuIdEdit" value="#{menu.itemId}" style="width: 10%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column sortBy="itemName" headerText="Item Name">
+
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{menu.itemName}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="menuNameEdit" value="#{menu.itemName}" style="width: 96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    <p:column sortBy="itemPrice" headerText="Item Price">
+
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{menu.itemPrice}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="menuPriceEdit" value="#{menu.itemPrice}" style="width: 96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                </p:dataTable>
 
             </h:form>
         </ui:define>
