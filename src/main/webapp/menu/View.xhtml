@@ -15,7 +15,7 @@
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <p:dataTable var="menu" value="#{menuController.items}" editable="true">
+                <p:dataTable var="menu" value="#{menuController.menuItems}" editable="true" editMode="row" paginator="true" rows="5">
                     <p:column sortBy="itemId" headerText="Item Id">
 
                         <p:cellEditor>
